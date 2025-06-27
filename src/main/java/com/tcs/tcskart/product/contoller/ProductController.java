@@ -1,5 +1,6 @@
 package com.tcs.tcskart.product.contoller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.tcs.tcskart.product.dto.ProductDetails;
 import com.tcs.tcskart.product.entity.Product;
 import com.tcs.tcskart.product.service.ProductService;
 import com.tcs.tcskart.product.utility.ProductNotFoundException;
@@ -25,23 +28,28 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
+    //Admin
     @PostMapping("/add")
     public ResponseEntity<String> addProduct(@RequestBody Product product) {
-        Product addedProduct = productService.addProduct(product);
-
-        if (addedProduct == null) {
-            return new ResponseEntity<>("Product" + product.getProductName() + " already exists ", HttpStatus.BAD_REQUEST);
+        try {
+            Product addedProduct = productService.addProduct(product);
+            if (addedProduct == null) {
+                return new ResponseEntity<>("Product with name '" + product.getProductName() + "' already exists.", HttpStatus.BAD_REQUEST);
+            }
+            return new ResponseEntity<>("Product added successfully.", HttpStatus.CREATED);
+        } catch (IllegalArgumentException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
         }
-
-        return new ResponseEntity<>("Product added successfully.", HttpStatus.CREATED);
     }
 
-    
+
+    //Users-all details
     @GetMapping("/allproducts")
     public List<Product> getAllProducts() {
         return productService.viewAllProducts();
     }
     
+    //Users by product name
     @GetMapping("/name/{productName}")
     public ResponseEntity<Object> getProductsByName(@PathVariable String productName) {
         try {
@@ -50,6 +58,44 @@ public class ProductController {
         } catch (ProductNotFoundException ex) {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
+    }
+    
+    //Users by product name to check available
+    @GetMapping("/details/{productName}")
+    public ResponseEntity<Object> getProductDetailsByName(@PathVariable String productName) {
+        try {
+            List<Product> products = productService.viewProductsByName(productName);
+            if (products.isEmpty()) {
+                return new ResponseEntity<>("No products found with the name: " + productName, HttpStatus.NOT_FOUND);
+            }
+            List<ProductDetails> productDetailsDTOList = new ArrayList<>();
+            for (Product product : products) {
+                String availabilityStatus = (product.getQuantity() > 0) ? "Available" : "Not Available";
+                ProductDetails dto = new ProductDetails(
+                        product.getProductName(),
+                        product.getDescription(),
+                        product.getProductPrice(),
+                        product.getProductCategory(),
+                        product.getProductRating(),
+                        availabilityStatus
+                );
+
+                productDetailsDTOList.add(dto);
+            }
+            return new ResponseEntity<>(productDetailsDTOList, HttpStatus.OK);
+        } catch (ProductNotFoundException ex) {
+            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        }
+    }
+    
+    //To Search Product with keyword
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<Product>> searchProducts(@PathVariable String keyword) {
+        List<Product> products = productService.searchProductsByKeyword(keyword);
+        if (products.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
 

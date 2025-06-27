@@ -12,4 +12,7 @@ import com.tcs.tcskart.product.entity.Product;
 public interface ProductRepository extends JpaRepository<Product, Integer>{
 
 	 List<Product> findByProductName(String productName);
+
+	List<Product> findByProductNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String keyword,
+			String keyword2);
 }
