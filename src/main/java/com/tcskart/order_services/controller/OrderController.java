@@ -46,6 +46,11 @@ public class OrderController {
 	{
 		return services.updateStatus(id, status);
 	}
+	@PostMapping("/rate/{userId}/{productId}/{rating}")
+    public String rateProduct(@PathVariable int userId, @PathVariable int productId, @PathVariable int rating) {
+        return services.addProductRating(userId, productId, rating);
+    }
+	
 	 
 
 }

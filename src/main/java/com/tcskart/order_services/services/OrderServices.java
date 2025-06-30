@@ -33,7 +33,7 @@ public class OrderServices {
 	OrderRepo orderRepo;
 	
 	@Autowired 
-	ProductRepo productPepo;
+	ProductRepo productRepo;
 	
 	@Autowired
 	UserRepo userRepo;
@@ -61,7 +61,7 @@ public class OrderServices {
             Double TotalPrice=0.0;
             for (OrderItemDto dto: orderdto.getOrderItems())
 	        {
-	        	Product product = productPepo.findById(dto.getProductid()).
+	        	Product product = productRepo.findById(dto.getProductid()).
 	        			orElseThrow(() -> new ProductNotFound());
 	            if (product.getQuantity() < dto.getQuantity()) {
 	                throw new NotEnoughStock();
@@ -70,7 +70,7 @@ public class OrderServices {
 	        for (OrderItemDto dto: orderdto.getOrderItems())
 	        {
 	        	
-	        	Product product = productPepo.findById(dto.getProductid()).
+	        	Product product = productRepo.findById(dto.getProductid()).
 	        			orElseThrow(() -> new ProductNotFound());
 	            product.setQuantity(product.getQuantity() - dto.getQuantity());
 	            OrderItem item = new OrderItem();
@@ -79,7 +79,7 @@ public class OrderServices {
 	            item.setQuantity(dto.getQuantity());
 	            item.setPrice(product.getProductPrice() * dto.getQuantity());
 	            TotalPrice+=item.getPrice();
-	            productPepo.save(product);
+	            productRepo.save(product);
 	            items.add(item);
 	        }
 	      
@@ -117,4 +117,40 @@ public class OrderServices {
 		orderRepo.save(order);
 		return "Sucessfully Update";
 	}
+	
+	public String addProductRating(int userId, int productId, int rating) {
+	    User user = userRepo.findById(userId).orElseThrow(() -> new UserNotFound());
+	    List<Order> orders = orderRepo.findByUserEmail(user.getEmail());
+	    boolean hasDeliveredOrder = false;
+	    for (Order order : orders) {
+	        if ("DELIVERED".equalsIgnoreCase(order.getStatus())) {
+	            for (OrderItem item : order.getOrderItems()) {
+	                if (item.getProduct().getProductId() == productId) {
+	                    hasDeliveredOrder = true;
+	                    break;
+	                }
+	            }
+	        }
+	        if (hasDeliveredOrder) {
+	            break;
+	        }
+	    }
+
+	    if (!hasDeliveredOrder) {
+	        return "You can only rate products you have received.";
+	    }
+
+	    Product product = productRepo.findById(productId)
+	            .orElseThrow(() -> new ProductNotFound());
+
+	    double currentRating = product.getProductRating();
+	    double newRating = (currentRating + rating) / 2.0;
+
+	    product.setProductRating(newRating);
+	    productRepo.save(product);
+
+	    return "Product rating updated successfully.";
+	}
+
+
 }

@@ -27,6 +27,10 @@ public class OrderItem {
 	@ManyToOne
 	private Product product;
 
+	public Product getProduct() {
+		return product;
+	}
+
 	public OrderItem(long id, int quantity, double price, Order order, Product product) {
 		super();
 		this.id = id;

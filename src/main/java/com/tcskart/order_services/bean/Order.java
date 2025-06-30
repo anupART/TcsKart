@@ -1,8 +1,5 @@
 package com.tcskart.order_services.bean;
 
-
-
-
 import java.time.LocalDate;
 import java.util.List;
 
