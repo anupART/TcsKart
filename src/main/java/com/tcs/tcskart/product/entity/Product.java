@@ -3,6 +3,8 @@ package com.tcs.tcskart.product.entity;
 import com.tcs.tcskart.product.utility.ProductCategory;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -27,6 +29,7 @@ public class Product {
 	private Integer quantity;
 
 	@Column(nullable = false)
+	@Enumerated(EnumType.STRING)
 	private ProductCategory productCategory;
 
 	@Column(nullable = false)
