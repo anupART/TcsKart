@@ -13,12 +13,12 @@ public interface ProductService {
 	
 	void viewProductById(Integer productId);
 	
-	void updateProduct(Product product);
-	
-	void deleteProductById(Integer productId);
+	Product updateProduct(Product product);
 
 
 	List<Product> viewProductsByName(String productName);
 
 	List<Product> searchProductsByKeyword(String keyword);
+
+	void deleteProductByName(String productName);
 }

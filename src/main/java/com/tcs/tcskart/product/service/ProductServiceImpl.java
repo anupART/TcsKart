@@ -64,17 +64,33 @@ public class ProductServiceImpl implements ProductService{
 		
 	}
 
+	
 	@Override
-	public void updateProduct(Product product) {
-		// TODO Auto-generated method stub
-		
+	public Product updateProduct(Product product) {
+	    List<Product> existingProducts = productRepository.findByProductName(product.getProductName());
+	    
+	    if (existingProducts.isEmpty()) {
+	        throw new ProductNotFoundException("Product " + product.getProductName() + " does not exist.");
+	    }
+
+	    Product existingProduct = existingProducts.get(0); 
+	    	    existingProduct.setQuantity(existingProduct.getQuantity() + product.getQuantity());
+	    if (product.getProductRating() != null) {
+	        existingProduct.setProductRating(product.getProductRating());
+	    }
+	    return productRepository.save(existingProduct);
 	}
 
+
 	@Override
-	public void deleteProductById(Integer productId) {
-		// TODO Auto-generated method stub
-		
+	public void deleteProductByName(String productName) {
+	    List<Product> products = productRepository.findByProductName(productName);
+	    if (products.isEmpty()) {
+	        throw new ProductNotFoundException("Product with name '" + productName + "' does not exist.");
+	    }
+	    productRepository.deleteAll(products);
 	}
+
 
 	 // Search products by keyword
     @Override
