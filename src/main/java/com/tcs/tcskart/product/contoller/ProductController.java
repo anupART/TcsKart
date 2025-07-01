@@ -7,19 +7,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tcs.tcskart.product.dto.ProductDetails;
 import com.tcs.tcskart.product.entity.Product;
+import com.tcs.tcskart.product.entity.ProductReview;
 import com.tcs.tcskart.product.service.ProductService;
 import com.tcs.tcskart.product.utility.ProductNotFoundException;
 
@@ -119,6 +117,34 @@ public class ProductController {
             return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+    
+  
+
+
+    @PostMapping("/review/{userId}/{productId}/{rating}")
+    public String addProductReview(
+            @PathVariable int userId,
+            @PathVariable int productId,
+            @PathVariable double rating,
+            @RequestBody String reviewText) {
+        return productService.addProductReview(userId, productId, rating, reviewText);
+    }
+
+    @PutMapping("/review/{reviewId}/{userId}/{productId}/{rating}")
+    public String updateProductReview(
+            @PathVariable long reviewId,
+            @PathVariable int userId,
+            @PathVariable int productId,
+            @PathVariable double rating,
+            @RequestBody String reviewText) {
+        return productService.updateProductReview(reviewId, userId, productId, rating, reviewText);
+    }
+
+    @GetMapping("/reviews/{productId}")
+    public List<ProductReview> getReviews(@PathVariable int productId) {
+        return productService.getReviewsForProduct(productId);
+    }
+
 
 
 
