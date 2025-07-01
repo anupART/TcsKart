@@ -15,6 +15,8 @@ import com.tcskart.order_services.bean.OrderItem;
 import com.tcskart.order_services.bean.Product;
 import com.tcskart.order_services.dto.OrderDto;
 import com.tcskart.order_services.dto.OrderItemDto;
+import com.tcskart.order_services.dto.ProductSalesByUser;
+import com.tcskart.order_services.dto.ProductSalesDTO;
 import com.tcskart.order_services.exception.ProductNotFound;
 import com.tcskart.order_services.services.OrderServices;
 
@@ -24,28 +26,59 @@ public class OrderController {
 	@Autowired
 	OrderServices services;
 	
-	@PostMapping("/placeorder")
+	@PostMapping("users/placeorder")
 	public Order PlaceOrder(@RequestBody OrderDto orderdto)
 	{
-		System.out.println(orderdto.getAddress());
-	     
-	      return  services.PlaceOrder(orderdto);
-			
+	      return  services.PlaceOrder(orderdto);	
 	}
-	@GetMapping("/users/{email}")
+	@GetMapping("/users/myorders/{email}")
 	 public List<Order> getOrdersByEmail(@PathVariable String email) {
 	       return services.getOrdersByUserEmail(email);
 	 }
-	@GetMapping("/admin/allorders")
+	@GetMapping("/admins/allorders")
 	 public List<Order> getAllOrders() {
 	       return services.getallorders();
 	       
 	 }
-	@GetMapping("/admin/updateStatus/{id}/{status}")
+	@GetMapping("/admins/updateorderstatus/{id}/{status}")
 	public String changeStatus(@PathVariable int id,@PathVariable String status)
 	{
 		return services.updateStatus(id, status);
 	}
+	@GetMapping("/users/carttomoveorder/{email}/{address}")
+	public Order carttoMoveOrder(@PathVariable String email,@PathVariable  String address)
+	{
+		return services.cartMoveToOrder(email, address);
+	}
+	
+	@GetMapping("/admin/dashboard/ProductList")
+	public List<ProductSalesDTO> highestSellingProduct()
+	{
+		return services.highestSellingProduct();
+	}
+	
+	@GetMapping("/admin/dashboard/Top5")
+	public List<ProductSalesDTO> highestSellingProductTop5()
+	{
+		return services.highestSellingProductTop5();
+	}
+	
+	@GetMapping("/admin/dashboard/highSellingProductList")
+	public List<ProductSalesByUser> highestSellingProductPerPerson()
+	{
+		//
+		for(ProductSalesByUser a:services.highestSellingProductDistantUser())
+		{
+			System.out.println(a.getNoOfUser());
+		}
+		return services.highestSellingProductDistantUser();
+	}
+	
+
+	
+	
+
+	
 	 
 
 }
