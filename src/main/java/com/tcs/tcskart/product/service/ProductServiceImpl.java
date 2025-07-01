@@ -52,7 +52,7 @@ public class ProductServiceImpl implements ProductService{
 		
 	
 
-
+	// Constructor injection - for testing
 	 @Autowired
 	 public ProductServiceImpl(ProductRepository productRepository) {
 	        this.productRepository = productRepository;
@@ -60,8 +60,8 @@ public class ProductServiceImpl implements ProductService{
 	 
 
 
+	 // To View all the products
 	 @Override
-
 	 public List<Product> viewAllProducts() {
 	     List<Product> products = productRepository.findAll();
 	     return products.stream()
@@ -70,7 +70,7 @@ public class ProductServiceImpl implements ProductService{
 	 }
 	 
 
-
+	 // To View Product By Name
 	@Override
 	public List<Product> viewProductsByName(String productName) {
 	    List<Product> products = productRepository.findByProductName(productName);
@@ -81,7 +81,7 @@ public class ProductServiceImpl implements ProductService{
 	}
 
 
-
+	// To add the product
 	@Override
 	public Product addProduct(Product product) {
 	    if (product.getProductName() == null || product.getProductName().trim().isEmpty()) {

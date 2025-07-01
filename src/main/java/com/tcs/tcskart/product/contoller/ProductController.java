@@ -4,10 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -50,7 +48,7 @@ public class ProductController {
 
 
     //Users-all details
-    @GetMapping("/allproducts")
+    @GetMapping("/all")
     public List<Product> getAllProducts() {
         return productService.viewAllProducts();
     }
