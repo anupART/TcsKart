@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.tcs.tcskart.product.dto.ProductDetails;
 import com.tcs.tcskart.product.entity.Product;
+import com.tcs.tcskart.product.entity.ProductReview;
 //import com.tcs.tcskart.product.entity.ProductReview;
 import com.tcs.tcskart.product.service.ProductService;
 import com.tcs.tcskart.product.utility.ProductNotFoundException;
@@ -139,31 +140,25 @@ public class ProductController {
     }
 
   
+    @PostMapping("/review/{email}/{productId}/{rating}")
+    public String addProductReview(
+            @PathVariable String email,
+            @PathVariable int productId,
+            @PathVariable double rating,
+            @RequestBody String reviewText) {
+        return productService.addProductReview(email, productId, rating, reviewText);
+    }
 
+    @GetMapping("/reviews/{productId}")
+    public List<ProductReview> getReviews(@PathVariable int productId) {
+        return productService.getReviewsByProductId(productId);
+    }
 
-//    @PostMapping("/review/{userId}/{productId}/{rating}")
-//    public String addProductReview(
-//            @PathVariable int userId,
-//            @PathVariable int productId,
-//            @PathVariable double rating,
-//            @RequestBody String reviewText) {
-//        return productService.addProductReview(userId, productId, rating, reviewText);
-//    }
-
-//    @PutMapping("/review/{reviewId}/{userId}/{productId}/{rating}")
-//    public String updateProductReview(
-//            @PathVariable long reviewId,
-//            @PathVariable int userId,
-//            @PathVariable int productId,
-//            @PathVariable double rating,
-//            @RequestBody String reviewText) {
-//        return productService.updateProductReview(reviewId, userId, productId, rating, reviewText);
-//    }
-
-//    @GetMapping("/reviews/{productId}")
-//    public List<ProductReview> getReviews(@PathVariable int productId) {
-//        return productService.getReviewsForProduct(productId);
-//    }
+    // Get products sorted by rating (descending)
+    @GetMapping("/products/sorted-by-rating")
+    public ResponseEntity<List<Product>> getProductsByRatingDesc() {
+        return ResponseEntity.ok(productService.getProductsSortedByRating());
+    }
 
 
 
