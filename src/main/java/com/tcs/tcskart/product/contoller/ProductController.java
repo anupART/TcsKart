@@ -1,9 +1,13 @@
 package com.tcs.tcskart.product.contoller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import org.hibernate.mapping.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tcs.tcskart.product.dto.ProductDetails;
@@ -30,7 +35,7 @@ public class ProductController {
     @Autowired
     ProductService productService;
 
-    //Admin
+
     @PostMapping("/add")
     public ResponseEntity<String> addProduct(@RequestBody Product product) {
         try {
@@ -39,10 +44,11 @@ public class ProductController {
                 return new ResponseEntity<>("Product with name '" + product.getProductName() + "' already exists.", HttpStatus.BAD_REQUEST);
             }
             return new ResponseEntity<>("Product added successfully.", HttpStatus.CREATED);
-        } catch (IllegalArgumentException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
 
 
     //Users-all details
@@ -57,8 +63,8 @@ public class ProductController {
         try {
             List<Product> products = productService.viewProductsByName(productName);
             return new ResponseEntity<>(products, HttpStatus.OK); 
-        } catch (ProductNotFoundException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (ProductNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
     
@@ -85,8 +91,8 @@ public class ProductController {
                 productDetailsDTOList.add(dto);
             }
             return new ResponseEntity<>(productDetailsDTOList, HttpStatus.OK);
-        } catch (ProductNotFoundException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (ProductNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
     
@@ -100,26 +106,53 @@ public class ProductController {
         return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
-    @PutMapping("/update")
-    public ResponseEntity<String> updateProduct(@RequestBody Product product) {
+
+    @PutMapping("/update/{productId}")
+    public ResponseEntity<String> updateProductById(@PathVariable Integer productId, @RequestBody Product product) {
         try {
-            Product updatedProduct = productService.updateProduct(product);
+            Product updatedProduct = productService.updateProductById(productId, product);
             return new ResponseEntity<>("Product updated successfully.", HttpStatus.OK);
-        } catch (ProductNotFoundException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (ProductNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+        } catch (IllegalArgumentException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
+
 
     @DeleteMapping("/delete/{productName}")
     public ResponseEntity<String> deleteProductByName(@PathVariable String productName) {
         try {
             productService.deleteProductByName(productName);  
-            return new ResponseEntity<>("Product(s) deleted successfully.", HttpStatus.OK);
-        } catch (ProductNotFoundException ex) {
-            return new ResponseEntity<>(ex.getMessage(), HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Product is deleted successfully.", HttpStatus.OK);
+        } catch (ProductNotFoundException e) {
+            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
         }
     }
+    
+    @DeleteMapping("/delete/id/{productId}")
+    public ResponseEntity<String> deleteProductById(@PathVariable Integer productId){
+    	try {
+    		productService.deleteProductByID(productId);
+    		return new ResponseEntity<>("Product is deleted successfully.",HttpStatus.OK);
+    	}
+    	catch(ProductNotFoundException e) {
+    		return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
+    	}
+    }
 
+    @GetMapping("/pages")
+    public ResponseEntity<HashMap<String, Object>> paginatedProducts(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        Page<Product> productPage = productService.getPaginatedProducts(page, size);
+        HashMap<String, Object> response = new HashMap<>();
+        response.put("products", productPage.getContent());
+        response.put("currentPage", productPage.getNumber());
+        response.put("totalPages", productPage.getTotalPages());
+        response.put("totalItems", productPage.getTotalElements());
+        return ResponseEntity.ok(response);
+    }
 
 
 }

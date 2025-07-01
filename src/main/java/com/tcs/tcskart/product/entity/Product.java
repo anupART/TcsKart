@@ -1,13 +1,21 @@
 package com.tcs.tcskart.product.entity;
 
+import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tcs.tcskart.product.utility.ProductCategory;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
+import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Product {
@@ -34,6 +42,19 @@ public class Product {
 
 	@Column(nullable = false)
 	private Double productRating;
+	
+	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	private List<ProductImage> images;
+
+	public List<ProductImage> getImages() {
+	    return images;
+	}
+
+	public void setImages(List<ProductImage> images) {
+	    this.images = images;
+	}
+
 
 	public Product() {
 
