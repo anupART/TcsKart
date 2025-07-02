@@ -1,0 +1,24 @@
+package com.tcskart.cartservice.repository;
+
+import java.util.List;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+import com.tcskart.cartservice.entity.Cart;
+import com.tcskart.cartservice.entity.CartItem;
+
+@Repository
+public interface CartItemRepository extends JpaRepository<CartItem, Integer> {
+
+	@Query("SELECT cartItem FROM CartItem cartItem WHERE cartItem.cart = :cart AND cartItem.product.id = :productId")
+	Optional<CartItem> findProductAndCart(Cart cart, Integer productId);
+
+	List<CartItem> findByCartId(Integer cartId);
+
+	void deleteAllByCart(Cart cart);
+
+	void deleteByCartId(Integer cartId);
+
+}
