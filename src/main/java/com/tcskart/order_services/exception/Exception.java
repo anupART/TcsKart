@@ -36,5 +36,11 @@ public class Exception {
 		
 		return new ResponseEntity<>("No Product Found", HttpStatus.NOT_FOUND);
 	}
+	
+	@ExceptionHandler(value = ProductNotAvailable.class)
+	public ResponseEntity<Object> exception(ProductNotAvailable exception){
+		
+		return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+	}
 
 }

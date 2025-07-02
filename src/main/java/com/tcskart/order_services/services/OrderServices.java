@@ -19,12 +19,14 @@ import com.tcskart.order_services.bean.CartItem;
 import com.tcskart.order_services.bean.Order;
 import com.tcskart.order_services.bean.OrderItem;
 import com.tcskart.order_services.bean.Product;
+
 import com.tcskart.order_services.bean.ProductReview;
 import com.tcskart.order_services.bean.User;
 import com.tcskart.order_services.dao.CartItemRepo;
 import com.tcskart.order_services.dao.CartRepo;
 import com.tcskart.order_services.dao.OrderItemRepo;
 import com.tcskart.order_services.dao.OrderRepo;
+import com.tcskart.order_services.dao.ProductAvailableRepo;
 import com.tcskart.order_services.dao.ProductRepo;
 import com.tcskart.order_services.dao.ProductReviewRepo;
 import com.tcskart.order_services.dao.UserRepo;
@@ -36,6 +38,7 @@ import com.tcskart.order_services.dto.ProductSalesDTO;
 import com.tcskart.order_services.exception.NoOrder;
 import com.tcskart.order_services.exception.NoProductFound;
 import com.tcskart.order_services.exception.NotEnoughStock;
+import com.tcskart.order_services.exception.ProductNotAvailable;
 import com.tcskart.order_services.exception.ProductNotFound;
 import com.tcskart.order_services.exception.UserNotFound;
 
@@ -64,6 +67,9 @@ public class OrderServices {
 	CartItemRepo cartItemRepo;
 	
 	@Autowired
+	ProductAvailableRepo availableRepo;
+	
+	@Autowired
 	private JavaMailSender javaMailSender;
 
 	public Order PlaceOrder(OrderDto orderdto) {
@@ -75,7 +81,8 @@ public class OrderServices {
 
 		Order order = new Order();
 		order.setUser(user);
-		order.setAddress(orderdto.getAddress());
+		String addressShow=orderdto.getAddress()+" Pincode : "+Integer.toString(orderdto.getPincode());
+		order.setAddress(addressShow);
 		order.setStatus("PENDING");
 		LocalDate currentDate = LocalDate.now();
 		order.setOrderDate(currentDate);
@@ -93,6 +100,10 @@ public class OrderServices {
 		for (OrderItemDto dto : orderdto.getOrderItems()) {
 
 			Product product = productPepo.findById(dto.getProductid()).orElseThrow(() -> new ProductNotFound());
+			if(availableRepo.existsByProduct_ProductIdAndPincode(dto.getProductid(),orderdto.getPincode()))
+			{
+				 throw new ProductNotAvailable(product.getProductName());
+			}
 			product.setQuantity(product.getQuantity() - dto.getQuantity());
 			if (product.getQuantity() < 5) {
                    this.AlertMail(product);
