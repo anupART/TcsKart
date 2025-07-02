@@ -128,6 +128,7 @@ public class ProductController {
     }
     
 
+    // to delete the product by product ID
     @DeleteMapping("/delete/id/{productId}")
     public ResponseEntity<String> deleteProductById(@PathVariable Integer productId){
     	try {
@@ -138,6 +139,7 @@ public class ProductController {
     		return new ResponseEntity<>(e.getMessage(),HttpStatus.NOT_FOUND);
     	}
     }
+    
 
   
     @PostMapping("/review/{email}/{productId}/{rating}")
