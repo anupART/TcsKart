@@ -1,6 +1,7 @@
 package com.tcs.tcskart.product.contoller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -39,13 +40,20 @@ public class ProductController {
 
 	@PostMapping("/product")
 	public Product addProduct(@RequestBody Product product) {
-		System.out.println(product.getProductCategory());
+//		product.setProductCategory(product.getProductCategory());
+		
+		System.out.println(product.toString());
 		return productRepository.save(product);
 	}
 
-	@GetMapping("/product/aa/{productCategory}")
+	@GetMapping("/products/{productCategory}")
 	public List<Product> searchByProductCategory(@PathVariable ProductCategory productCategory){
 		return productService.searchByProductCategory(productCategory);
+	}
+	
+	@GetMapping("/product/{productId}")
+	public Optional<Product> getProductById(@PathVariable Integer productId){
+		 return productRepository.findById(productId);
 	}
 	@DeleteMapping("/product/{productId}")
 	public void deleteByProductId(@PathVariable Integer productId){

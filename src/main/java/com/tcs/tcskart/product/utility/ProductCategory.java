@@ -1,5 +1,5 @@
 package com.tcs.tcskart.product.utility;
 
 public enum ProductCategory {
-	HOME_APPLIANCES, ELECTRONICS,STATIONERY
+	HOME_APPLIANCES, ELECTRONICS,STATIONERY, ELECTRICAL
 }

@@ -1,6 +1,7 @@
 package com.tcs.tcskart.product.entity;
 
 import com.tcs.tcskart.product.utility.ProductCategory;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -16,32 +17,31 @@ public class Product {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer productId;
 
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	private String productName;
 
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	private String description;
 
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	private Double productPrice;
 
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	private Integer quantity;
 
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
 	private ProductCategory productCategory;
 
-	@Column(nullable = false)
+//	@Column(nullable = false)
 	private Double productRating;
 
 	public Product() {
 
 	}
 
-	public Product(String productName, String description, Double productPrice, Integer quantity,
+	public Product( String productName, String description, Double productPrice, Integer quantity,
 			ProductCategory productCategory, Double productRating) {
-		super();
 		this.productName = productName;
 		this.description = description;
 		this.productPrice = productPrice;
@@ -105,5 +105,14 @@ public class Product {
 	public void setProductRating(Double productRating) {
 		this.productRating = productRating;
 	}
+
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", productName=" + productName + ", description=" + description
+				+ ", productPrice=" + productPrice + ", quantity=" + quantity + ", productCategory=" + productCategory
+				+ ", productRating=" + productRating + "]";
+	}
+
+
 
 }

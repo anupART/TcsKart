@@ -10,7 +10,7 @@ public class ProductExceptionController {
 
 	@ExceptionHandler(InValidProductIdException.class)
 	public ResponseEntity<String> inValidException() {
-		return new ResponseEntity<String>("Product ID can't be negative", HttpStatus.BAD_REQUEST);
+		return new ResponseEntity<>("Product ID can't be negative", HttpStatus.BAD_REQUEST);
 	}
 	
 	@ExceptionHandler(ProductNotFoundException.class)
