@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tcskart.order_services.bean.Order;
 import com.tcskart.order_services.bean.OrderItem;
 import com.tcskart.order_services.bean.Product;
+import com.tcskart.order_services.bean.ProductNotAvailableLocation;
 import com.tcskart.order_services.dto.OrderDto;
 import com.tcskart.order_services.dto.OrderItemDto;
 import com.tcskart.order_services.dto.ProductSalesByUser;
@@ -76,7 +77,12 @@ public class OrderController {
 	
 
 	
-	
+	@GetMapping("/add/{productId}/{pincode}")
+	public ProductNotAvailableLocation addProduct(@PathVariable int productId,@PathVariable int pincode)
+	{
+		//System.out.println(productId);
+		return  services.addProduct(productId,pincode);
+	}
 
 	
 	 

@@ -42,7 +42,7 @@ public class ProductNotAvailableLocation {
 	}
 
 	public void setPincode(int pincode) {
-		pincode = pincode;
+		this.pincode = pincode;
 	}
 
 	public Product getProduct() {

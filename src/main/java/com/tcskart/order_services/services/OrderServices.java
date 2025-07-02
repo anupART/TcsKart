@@ -19,7 +19,7 @@ import com.tcskart.order_services.bean.CartItem;
 import com.tcskart.order_services.bean.Order;
 import com.tcskart.order_services.bean.OrderItem;
 import com.tcskart.order_services.bean.Product;
-
+import com.tcskart.order_services.bean.ProductNotAvailableLocation;
 import com.tcskart.order_services.bean.ProductReview;
 import com.tcskart.order_services.bean.User;
 import com.tcskart.order_services.dao.CartItemRepo;
@@ -100,6 +100,7 @@ public class OrderServices {
 		for (OrderItemDto dto : orderdto.getOrderItems()) {
 
 			Product product = productPepo.findById(dto.getProductid()).orElseThrow(() -> new ProductNotFound());
+			//System.out.println(availableRepo.existsByProduct_ProductIdAndPincode(dto.getProductid(),orderdto.getPincode()));
 			if(availableRepo.existsByProduct_ProductIdAndPincode(dto.getProductid(),orderdto.getPincode()))
 			{
 				 throw new ProductNotAvailable(product.getProductName());
@@ -108,7 +109,6 @@ public class OrderServices {
 			if (product.getQuantity() < 5) {
                    this.AlertMail(product);
 			}
-//			System.out.println(product.getProductName());
 			ProductName.add(product.getProductName());
 			OrderItem item = new OrderItem();
 			item.setOrder(order);
@@ -283,5 +283,13 @@ public class OrderServices {
 			throw new NoProductFound();
 		}
 		return top5Products;
+	}
+	public ProductNotAvailableLocation addProduct(int pid,int pincode)
+	{
+		ProductNotAvailableLocation p=new ProductNotAvailableLocation();
+         p.setPincode(pincode);
+         Optional<Product> product=productPepo.findById(pid);
+         p.setProduct(product.get());;
+		return availableRepo.save(p);
 	}
 }
