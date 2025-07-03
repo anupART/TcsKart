@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.tcskart.AppTest" time="0.036" tests="1" errors="0" skipped="0" failures="0">
+  <properties>
+    <property name="java.specification.version" value="17"/>
+    <property name="sun.jnu.encoding" value="UTF-8"/>
+    <property name="java.class.path" value="/home/labuser/Demo/TCSKart/shared-security/target/test-classes:/home/labuser/Demo/TCSKart/shared-security/target/classes:/home/labuser/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot-starter/3.1.9/spring-boot-starter-3.1.9.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot/3.1.9/spring-boot-3.1.9.jar:/home/labuser/.m2/repository/org/springframework/spring-context/6.0.17/spring-context-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.1.9/spring-boot-autoconfigure-3.1.9.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.1.9/spring-boot-starter-logging-3.1.9.jar:/home/labuser/.m2/repository/ch/qos/logback/logback-classic/1.4.14/logback-classic-1.4.14.jar:/home/labuser/.m2/repository/ch/qos/logback/logback-core/1.4.14/logback-core-1.4.14.jar:/home/labuser/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/home/labuser/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.20.0/log4j-to-slf4j-2.20.0.jar:/home/labuser/.m2/repository/org/apache/logging/log4j/log4j-api/2.20.0/log4j-api-2.20.0.jar:/home/labuser/.m2/repository/org/slf4j/jul-to-slf4j/2.0.12/jul-to-slf4j-2.0.12.jar:/home/labuser/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/home/labuser/.m2/repository/org/springframework/spring-core/6.0.17/spring-core-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/spring-jcl/6.0.17/spring-jcl-6.0.17.jar:/home/labuser/.m2/repository/org/yaml/snakeyaml/1.33/snakeyaml-1.33.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot-starter-security/3.1.9/spring-boot-starter-security-3.1.9.jar:/home/labuser/.m2/repository/org/springframework/spring-aop/6.0.17/spring-aop-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/spring-beans/6.0.17/spring-beans-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/security/spring-security-config/6.1.7/spring-security-config-6.1.7.jar:/home/labuser/.m2/repository/org/springframework/security/spring-security-core/6.1.7/spring-security-core-6.1.7.jar:/home/labuser/.m2/repository/org/springframework/security/spring-security-crypto/6.1.7/spring-security-crypto-6.1.7.jar:/home/labuser/.m2/repository/io/micrometer/micrometer-observation/1.11.9/micrometer-observation-1.11.9.jar:/home/labuser/.m2/repository/io/micrometer/micrometer-commons/1.11.9/micrometer-commons-1.11.9.jar:/home/labuser/.m2/repository/org/springframework/security/spring-security-web/6.1.7/spring-security-web-6.1.7.jar:/home/labuser/.m2/repository/org/springframework/spring-expression/6.0.17/spring-expression-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/spring-web/6.0.17/spring-web-6.0.17.jar:/home/labuser/.m2/repository/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar:/home/labuser/.m2/repository/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar:/home/labuser/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar:/home/labuser/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.4/jackson-databind-2.15.4.jar:/home/labuser/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.4/jackson-annotations-2.15.4.jar:/home/labuser/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.4/jackson-core-2.15.4.jar:/home/labuser/.m2/repository/jakarta/servlet/jakarta.servlet-api/6.0.0/jakarta.servlet-api-6.0.0.jar:"/>
+    <property name="java.vm.vendor" value="Ubuntu"/>
+    <property name="sun.arch.data.model" value="64"/>
+    <property name="java.vendor.url" value="https://ubuntu.com/"/>
+    <property name="os.name" value="Linux"/>
+    <property name="java.vm.specification.version" value="17"/>
+    <property name="sun.java.launcher" value="SUN_STANDARD"/>
+    <property name="sun.boot.library.path" value="/usr/lib/jvm/java-17-openjdk-amd64/lib"/>
+    <property name="sun.java.command" value="/home/labuser/Demo/TCSKart/shared-security/target/surefire/surefirebooter-20250701104722840_9.jar /home/labuser/Demo/TCSKart/shared-security/target/surefire 2025-07-01T10-47-17_939-jvmRun1 surefire-20250701104722840_7tmp surefire_2-20250701104722840_8tmp"/>
+    <property name="jdk.debug" value="release"/>
+    <property name="surefire.test.class.path" value="/home/labuser/Demo/TCSKart/shared-security/target/test-classes:/home/labuser/Demo/TCSKart/shared-security/target/classes:/home/labuser/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot-starter/3.1.9/spring-boot-starter-3.1.9.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot/3.1.9/spring-boot-3.1.9.jar:/home/labuser/.m2/repository/org/springframework/spring-context/6.0.17/spring-context-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot-autoconfigure/3.1.9/spring-boot-autoconfigure-3.1.9.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot-starter-logging/3.1.9/spring-boot-starter-logging-3.1.9.jar:/home/labuser/.m2/repository/ch/qos/logback/logback-classic/1.4.14/logback-classic-1.4.14.jar:/home/labuser/.m2/repository/ch/qos/logback/logback-core/1.4.14/logback-core-1.4.14.jar:/home/labuser/.m2/repository/org/slf4j/slf4j-api/2.0.12/slf4j-api-2.0.12.jar:/home/labuser/.m2/repository/org/apache/logging/log4j/log4j-to-slf4j/2.20.0/log4j-to-slf4j-2.20.0.jar:/home/labuser/.m2/repository/org/apache/logging/log4j/log4j-api/2.20.0/log4j-api-2.20.0.jar:/home/labuser/.m2/repository/org/slf4j/jul-to-slf4j/2.0.12/jul-to-slf4j-2.0.12.jar:/home/labuser/.m2/repository/jakarta/annotation/jakarta.annotation-api/2.1.1/jakarta.annotation-api-2.1.1.jar:/home/labuser/.m2/repository/org/springframework/spring-core/6.0.17/spring-core-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/spring-jcl/6.0.17/spring-jcl-6.0.17.jar:/home/labuser/.m2/repository/org/yaml/snakeyaml/1.33/snakeyaml-1.33.jar:/home/labuser/.m2/repository/org/springframework/boot/spring-boot-starter-security/3.1.9/spring-boot-starter-security-3.1.9.jar:/home/labuser/.m2/repository/org/springframework/spring-aop/6.0.17/spring-aop-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/spring-beans/6.0.17/spring-beans-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/security/spring-security-config/6.1.7/spring-security-config-6.1.7.jar:/home/labuser/.m2/repository/org/springframework/security/spring-security-core/6.1.7/spring-security-core-6.1.7.jar:/home/labuser/.m2/repository/org/springframework/security/spring-security-crypto/6.1.7/spring-security-crypto-6.1.7.jar:/home/labuser/.m2/repository/io/micrometer/micrometer-observation/1.11.9/micrometer-observation-1.11.9.jar:/home/labuser/.m2/repository/io/micrometer/micrometer-commons/1.11.9/micrometer-commons-1.11.9.jar:/home/labuser/.m2/repository/org/springframework/security/spring-security-web/6.1.7/spring-security-web-6.1.7.jar:/home/labuser/.m2/repository/org/springframework/spring-expression/6.0.17/spring-expression-6.0.17.jar:/home/labuser/.m2/repository/org/springframework/spring-web/6.0.17/spring-web-6.0.17.jar:/home/labuser/.m2/repository/io/jsonwebtoken/jjwt-api/0.11.5/jjwt-api-0.11.5.jar:/home/labuser/.m2/repository/io/jsonwebtoken/jjwt-impl/0.11.5/jjwt-impl-0.11.5.jar:/home/labuser/.m2/repository/io/jsonwebtoken/jjwt-jackson/0.11.5/jjwt-jackson-0.11.5.jar:/home/labuser/.m2/repository/com/fasterxml/jackson/core/jackson-databind/2.15.4/jackson-databind-2.15.4.jar:/home/labuser/.m2/repository/com/fasterxml/jackson/core/jackson-annotations/2.15.4/jackson-annotations-2.15.4.jar:/home/labuser/.m2/repository/com/fasterxml/jackson/core/jackson-core/2.15.4/jackson-core-2.15.4.jar:/home/labuser/.m2/repository/jakarta/servlet/jakarta.servlet-api/6.0.0/jakarta.servlet-api-6.0.0.jar:"/>
+    <property name="sun.cpu.endian" value="little"/>
+    <property name="user.home" value="/home/labuser"/>
+    <property name="user.language" value="en"/>
+    <property name="java.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.version.date" value="2025-04-15"/>
+    <property name="java.home" value="/usr/lib/jvm/java-17-openjdk-amd64"/>
+    <property name="file.separator" value="/"/>
+    <property name="basedir" value="/home/labuser/Demo/TCSKart/shared-security"/>
+    <property name="java.vm.compressedOopsMode" value="Zero based"/>
+    <property name="line.separator" value="&#10;"/>
+    <property name="java.vm.specification.vendor" value="Oracle Corporation"/>
+    <property name="java.specification.name" value="Java Platform API Specification"/>
+    <property name="surefire.real.class.path" value="/home/labuser/Demo/TCSKart/shared-security/target/surefire/surefirebooter-20250701104722840_9.jar"/>
+    <property name="sun.management.compiler" value="HotSpot 64-Bit Tiered Compilers"/>
+    <property name="java.runtime.version" value="17.0.15+6-Ubuntu-0ubuntu122.04"/>
+    <property name="user.name" value="labuser"/>
+    <property name="path.separator" value=":"/>
+    <property name="os.version" value="6.8.0-1030-aws"/>
+    <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
+    <property name="file.encoding" value="UTF-8"/>
+    <property name="java.vm.name" value="OpenJDK 64-Bit Server VM"/>
+    <property name="localRepository" value="/home/labuser/.m2/repository"/>
+    <property name="java.vendor.url.bug" value="https://bugs.launchpad.net/ubuntu/+source/openjdk-17"/>
+    <property name="java.io.tmpdir" value="/tmp"/>
+    <property name="java.version" value="17.0.15"/>
+    <property name="user.dir" value="/home/labuser/Demo/TCSKart/shared-security"/>
+    <property name="os.arch" value="amd64"/>
+    <property name="java.vm.specification.name" value="Java Virtual Machine Specification"/>
+    <property name="native.encoding" value="UTF-8"/>
+    <property name="java.library.path" value="/usr/java/packages/lib:/usr/lib/x86_64-linux-gnu/jni:/lib/x86_64-linux-gnu:/usr/lib/x86_64-linux-gnu:/usr/lib/jni:/lib:/usr/lib"/>
+    <property name="java.vm.info" value="mixed mode, sharing"/>
+    <property name="java.vendor" value="Ubuntu"/>
+    <property name="java.vm.version" value="17.0.15+6-Ubuntu-0ubuntu122.04"/>
+    <property name="java.specification.maintenance.version" value="1"/>
+    <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
+    <property name="java.class.version" value="61.0"/>
+  </properties>
+  <testcase name="testApp" classname="com.tcskart.AppTest" time="0.002"/>
+</testsuite>
