@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.tcs.tcskart.product.dto.ProductDetails;
 import com.tcs.tcskart.product.entity.Product;
 import com.tcs.tcskart.product.entity.ProductReview;
-//import com.tcs.tcskart.product.entity.ProductReview;
 import com.tcs.tcskart.product.service.ProductService;
 import com.tcs.tcskart.product.utility.ProductNotFoundException;
 
@@ -31,7 +30,6 @@ public class ProductController {
 
     @Autowired
     ProductService productService;
-
 
     @PostMapping("/add")
     public ResponseEntity<String> addProduct(@RequestBody Product product) {
@@ -45,7 +43,6 @@ public class ProductController {
             return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
     }
-
 
 
     //Users-all details
@@ -132,7 +129,7 @@ public class ProductController {
     @DeleteMapping("/delete/id/{productId}")
     public ResponseEntity<String> deleteProductById(@PathVariable Integer productId){
     	try {
-    		productService.deleteProductByID(productId);
+    		productService.deleteById(productId);
     		return new ResponseEntity<>("Product is deleted successfully.",HttpStatus.OK);
     	}
     	catch(ProductNotFoundException e) {
