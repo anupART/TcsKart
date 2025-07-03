@@ -12,7 +12,18 @@ public class OrderDto {
 	private String status;
 	private LocalDate orderDate;
 	private String address;
+	private int pincode;
 	
+	public int getPincode() {
+		return pincode;
+	}
+
+
+	public void setPincode(int pincode) {
+		this.pincode = pincode;
+	}
+
+
 	public String getAddress() {
 		return address;
 	}
@@ -33,11 +44,12 @@ public class OrderDto {
 
 
 
-	public OrderDto(String email, List<OrderItemDto> orderItems,String address) {
+	public OrderDto(String email, List<OrderItemDto> orderItems,String address,int pincode) {
 		super();
 		this.email = email;
 		this.address=address;
 		this.orderItems = orderItems;
+		this.pincode=pincode;
 	}
 
 

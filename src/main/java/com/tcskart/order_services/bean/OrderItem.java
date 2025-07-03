@@ -44,9 +44,7 @@ public class OrderItem {
 		super();
 	}
 
-	public long getId() {
-		return id;
-	}
+
 
 	public void setId(long id) {
 		this.id = id;
@@ -67,6 +65,7 @@ public class OrderItem {
 	public void setPrice(double price) {
 		this.price = price;
 	}
+	
 
 
 
@@ -77,6 +76,10 @@ public class OrderItem {
 
 	public void setProduct(Product product) {
 		this.product = product;
+	}
+
+	public Product getProduct() {
+		return product;
 	}
 	
 }

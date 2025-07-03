@@ -1,8 +1,5 @@
 package com.tcskart.order_services.bean;
 
-
-
-
 import com.tcskart.order_services.utlity.ProductCategory;
 
 import jakarta.persistence.Column;
