@@ -9,6 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.tcs.tcskart.product.entity.Product;
+import com.tcs.tcskart.product.utility.ProductCategory;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Integer>{
@@ -17,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer>{
 
 	List<Product> findByProductNameContainingIgnoreCaseOrDescriptionContainingIgnoreCase(String keyword,
 			String keyword2);
-	
+	List<Product> findByProductCategory(ProductCategory productCategory);
 	
     Page<Product> findAll(Pageable pageable);
 
