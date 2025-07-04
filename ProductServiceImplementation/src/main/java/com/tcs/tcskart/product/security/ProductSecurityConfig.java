@@ -23,7 +23,7 @@ public class ProductSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/products/all","/products/name/**","/products/product/{id}","/products/updateQuantity/**").permitAll()
+                .requestMatchers("/products/all","/products/name/**","/products/product/**","/products/updateQuantity/**").permitAll()
                 .requestMatchers("/products/add").hasRole("ADMIN")
                 .requestMatchers("/products/update/**").hasRole("ADMIN")
                 .requestMatchers("/products/delete/**").hasRole("ADMIN")

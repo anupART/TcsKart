@@ -23,10 +23,10 @@ public class CartSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
+            	.requestMatchers("/customers/feign/cart/**","/product/**","/customers/product/share/**").permitAll()
+                .requestMatchers("/customers/product/**").hasRole("ADMIN")
                 .requestMatchers("/customers/**").hasRole("CUSTOMER")
-                .requestMatchers("/customers/feign/cart/**","/product/**").permitAll()
-                .anyRequest().authenticated()
-            )
+                .anyRequest().permitAll()          )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
             )

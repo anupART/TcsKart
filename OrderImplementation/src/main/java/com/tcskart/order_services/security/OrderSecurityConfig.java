@@ -23,9 +23,9 @@ public class OrderSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/orders/users/email/**").permitAll()
-                .requestMatchers("orders/users/**").hasRole("CUSTOMER")
-                .requestMatchers("orders/admin/**").hasRole("ADMIN")
+                .requestMatchers("/orders/share/email/**").permitAll()
+                .requestMatchers("/orders/users/**").hasRole("CUSTOMER")
+                .requestMatchers("/orders/admin/**").hasRole("ADMIN")
                 .anyRequest().permitAll()
             )
             .sessionManagement(session -> session

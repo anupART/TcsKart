@@ -2,53 +2,52 @@ package com.tcskart.user_service.entity;
 
 import com.tcskart.user_service.util.Role;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.UniqueConstraint;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 
 @Entity
 @Table(
-		name="user",
-		uniqueConstraints = @UniqueConstraint(columnNames = {
-				"email", "phoneNumber"
-		})
-		)
+	name = "user",
+	uniqueConstraints = @UniqueConstraint(columnNames = {
+		"email", "phoneNumber"
+	})
+)
+@Schema(description = "Represents a user entity in the system")
 public class User {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Schema(description = "Auto-generated user ID", example = "1")
 	private int id;
 	
 	@Column(nullable = false)
+	@Schema(description = "Full name of the user", example = "John Doe")
 	private String name;
 	
 	@Column(nullable = false)
+	@Schema(description = "Email address of the user", example = "john.doe@example.com")
 	private String email;
 	
 	@Column(nullable = false)
+	@Schema(description = "Phone number of the user", example = "9876543210")
 	private long phoneNumber;
 	
 	@Column(nullable = false)
+	@Schema(description = "Password of the user", example = "password123")
 	private String password;
 	
 	@Column(nullable = false)
 	@Enumerated(EnumType.STRING)
+	@Schema(description = "Role of the user", example = "USER")
 	private Role role;
 	
 	@Column(nullable = false)
+	@Schema(description = "Account status (e.g., ACTIVE, INACTIVE)", example = "ACTIVE")
 	private String status;
 	
-	
-
 	public User() {}
 	
-	public User(int id, String name, String email, long phoneNumber, String password, Role role,String status) {
+	public User(int id, String name, String email, long phoneNumber, String password, Role role, String status) {
 		this.id = id;
 		this.name = name;
 		this.email = email;
@@ -58,7 +57,6 @@ public class User {
 		this.status = status;
 	}
 	
-	
 	public User(String name, String email, long phoneNumber, String password) {
 		this.name = name;
 		this.email = email;
@@ -66,7 +64,6 @@ public class User {
 		this.password = password;
 	}
 	
-
 	public User(String email, String password) {
 		super();
 		this.email = email;
@@ -128,5 +125,4 @@ public class User {
 	public void setStatus(String status) {
 		this.status = status;
 	}	
-
 }

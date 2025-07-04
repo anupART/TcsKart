@@ -13,7 +13,7 @@ import com.tcs.tcskart.product.dto.Order;
 @FeignClient(name = "OrderImplementation")
 public interface OrderFeignClient {
 	
-	 @GetMapping("/orders/users/email{email}")
+	 @GetMapping("/orders/share/email/{email}")
 	 public List<Order> getOrdersSendByEmail(@PathVariable String email);
 
    

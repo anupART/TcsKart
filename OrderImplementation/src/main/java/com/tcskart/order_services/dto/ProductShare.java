@@ -12,7 +12,10 @@ public class ProductShare {
     private Double productRating;
     private Integer quantity;
    
-    
+    public ProductShare()
+    {
+    	
+    }
 	
 	public Integer getProductId() {
 		return productId;
@@ -69,6 +72,6 @@ public class ProductShare {
 	}
     
     
-	    
+	  
 	    
 }

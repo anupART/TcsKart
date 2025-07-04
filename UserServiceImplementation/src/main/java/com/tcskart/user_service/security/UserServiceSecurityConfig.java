@@ -25,11 +25,11 @@ public class UserServiceSecurityConfig {
         http
             .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(auth -> auth
-                .requestMatchers("/users/login", "/users/customers", "/users/customers/reset/**").permitAll()
+                .requestMatchers("/users/login", "/users/customers", "/users/customers/reset/**","/users/admin").permitAll()
                 .requestMatchers("/tokens/blacklisted","/users/email/**").permitAll()
                 .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/customers/**").hasRole("USER")
-                .anyRequest().authenticated()
+                .requestMatchers("/customers/**","users/customers/update/**").hasRole("USER")
+                .anyRequest().permitAll()
             )
             .sessionManagement(session -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)

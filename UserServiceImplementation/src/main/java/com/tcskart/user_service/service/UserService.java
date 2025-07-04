@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.tcskart.security.JwtUtil;
@@ -59,14 +58,34 @@ public class UserService {
 		return repo.save(user);
 	}
 	
+	public User addAdmin(User user) {
+		if(repo.existsByEmail(user.getEmail())) {
+			throw new EmailExistsException();
+		}
+		if(repo.existsByPhoneNumber(user.getPhoneNumber())) {
+			throw new PhoneNumberExistsException();
+		}
+		if(!validation.emailValidation(user.getEmail())) {
+			throw new InvalidEmailException();
+		}
+		if(!validation.phoneNumberValidation(user.getPhoneNumber())) {
+			throw new InvalidPhoneNumberException();
+		}
+		if(validation.passwordValidation(user.getPassword())) {
+			throw new PasswordException();
+		}
+		user.setRole(Role.ADMIN);
+		user.setStatus("ACTIVE");
+		user.setPassword(util.encrypt(user.getPassword()));
+		return repo.save(user);
+	}
+	
 	public String login(String email,String password) {
 		String encryptedpassword = repo.getPasswordByEmail(email);
 		boolean isMatches = util.matches(password, encryptedpassword);
-		if(isMatches && email.equals("admin123@gmail.com")) {
-			return jwtUtil.generateToken(email,"ADMIN");
-		}
-		else if(isMatches) {
-			return jwtUtil.generateToken(email,"CUSTOMER");
+		if(isMatches) {
+			User user = repo.findByEmail(email);
+			return jwtUtil.generateToken(email, user.getRole().toString());
 		}
 		else {
 			throw new InvalidCredentialsException();
@@ -88,5 +107,13 @@ public class UserService {
 		User user = repo.findByEmail(email);
 		return new UserDto(user.getName(), user.getEmail(), user.getPhoneNumber(), user.getRole(), user.getStatus());
 	}
+	
+	public User updateProfileByEmail(String email, String name, long phoneNumber) {
+        User user = repo.findByEmail(email);
+        user.setName(name);
+        user.setPhoneNumber(phoneNumber);
+        return repo.save(user);
+    }
+
 
 }

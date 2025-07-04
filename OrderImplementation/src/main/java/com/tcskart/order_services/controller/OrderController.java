@@ -34,20 +34,20 @@ public class OrderController {
 	 public List<Order> getOrdersByEmail(@PathVariable String email) {
 	       return services.getOrdersByUserEmail(email);
 	 }
-	@GetMapping("/admins/allorders")
+	@GetMapping("/admin/allorders")
 	 public List<Order> getAllOrders() {
 	       return services.getallorders();
-	       
+	    
 	 }
-	@GetMapping("/admins/updateorderstatus/{id}/{status}")
+	@GetMapping("/admin/updateorderstatus/{id}/{status}")
 	public String changeStatus(@PathVariable int id,@PathVariable String status)
 	{
 		return services.updateStatus(id, status);
 	}
-	@GetMapping("/users/carttomoveorder/{email}/{address}")
-	public Order carttoMoveOrder(@PathVariable String email,@PathVariable  String address)
+	@GetMapping("/users/carttomoveorder/{email}/{address}/{pincode}")
+	public Order carttoMoveOrder(@PathVariable String email,@PathVariable  String address,@PathVariable int pincode )
 	{
-		return services.cartMoveToOrder(email, address);
+		return services.cartMoveToOrder(email, address,pincode);
 	}
 	
 	@GetMapping("/admin/dashboard/ProductList")
@@ -73,7 +73,7 @@ public class OrderController {
 		return services.highestSellingProductDistantUser();
 	}
 	
-	@GetMapping("/users/email/{email}")
+	@GetMapping("/share/email/{email}")
 	 public List<Order> getOrdersSendByEmail(@PathVariable String email) {
 	       return services.getOrdersByUserEmail(email);
 	 }

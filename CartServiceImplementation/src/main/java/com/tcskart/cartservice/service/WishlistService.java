@@ -1,6 +1,7 @@
 package com.tcskart.cartservice.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -62,14 +63,14 @@ public class WishlistService {
 	}
 
 	@Transactional
-	public ResponseEntity<String> removeProductFromWishlist(String userEmail, Integer productId) {
+	public ResponseEntity<String> removeProductFromWishlist(String userEmail, Integer wishlistId) {
 
-		ProductShare product = productService.getDetailsByProductId(productId);
-
-		if (product == null) {
+		Optional<Wishlist> wishlistProduct = wishlistRepository.findById(wishlistId);
+		
+		if(wishlistProduct.isEmpty()) {
 			throw new ProductNotFoundException();
 		}
-		wishlistRepository.deleteByUserAndProduct(userEmail, productId);
+		wishlistRepository.deleteByUserAndProduct(userEmail, wishlistId);
 
 		return new ResponseEntity<>("Product is successfully removed.", HttpStatus.OK);
 	}

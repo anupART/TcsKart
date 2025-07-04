@@ -1,68 +1,59 @@
 package com.tcskart.cartservice.entity;
 
-import java.util.List;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 
 @Entity
+@Schema(description = "Represents a product added by a user to their wishlist")
 public class Wishlist {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer wishlistId;
-	
-	private String email;
-	
-	private int productId;
-	
-	public Wishlist(Integer wishlistId, String email, int productId) {
-		super();
-		this.wishlistId = wishlistId;
-		this.email = email;
-		this.productId = productId;
-	}
-	
-	public Wishlist() {}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique ID for the wishlist item", example = "1")
+    private Integer wishlistId;
 
-	public Wishlist(String email, int productId) {
-		super();
-		this. email= email;
-		this.productId = productId;
-	}
+    @Schema(description = "User's email associated with the wishlist", example = "user@example.com")
+    private String email;
 
-	public Integer getWishlistId() {
-		return wishlistId;
-	}
+    @Schema(description = "Product ID added to the wishlist", example = "101")
+    private int productId;
 
-	public void setWishlistId(Integer wishlistId) {
-		this.wishlistId = wishlistId;
-	}
+    public Wishlist(Integer wishlistId, String email, int productId) {
+        super();
+        this.wishlistId = wishlistId;
+        this.email = email;
+        this.productId = productId;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public Wishlist() {}
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public Wishlist(String email, int productId) {
+        super();
+        this.email = email;
+        this.productId = productId;
+    }
 
-	public int getProductId() {
-		return productId;
-	}
+    public Integer getWishlistId() {
+        return wishlistId;
+    }
 
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
+    public void setWishlistId(Integer wishlistId) {
+        this.wishlistId = wishlistId;
+    }
 
-	
+    public String getEmail() {
+        return email;
+    }
 
-	
-	
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 }

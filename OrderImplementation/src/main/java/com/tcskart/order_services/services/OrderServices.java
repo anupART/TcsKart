@@ -62,6 +62,14 @@ public class OrderServices {
 		Double TotalPrice = 0.0;
 		for (OrderItemDto dto : orderdto.getOrderItems()) {
 			ProductShare product = sharerepo.getDetailsByProductId(dto.getProductid());
+			if(product==null)	
+			{
+				  throw new ProductNotFound();
+			}
+			if(cartService.isProductNotAvailable(dto.getProductid(),orderdto.getPincode()))
+			{
+				 throw new ProductNotAvailable(product.getProductName());
+			}
 			if (product.getQuantity() < dto.getQuantity()) {
 				this.AlertMail(product);
 				throw new NotEnoughStock();
@@ -69,17 +77,8 @@ public class OrderServices {
 		}
 		ArrayList<String> ProductName = new ArrayList<>();
 		for (OrderItemDto dto : orderdto.getOrderItems()) {
-
-			ProductShare product = productService.getDetailsByProductId(dto.getProductid());  
-			  if(product==null)
-			  {
-				  new ProductNotFound();
-			  }
+		  	ProductShare product = productService.getDetailsByProductId(dto.getProductid());  
 			//System.out.println(availableRepo.existsByProduct_ProductIdAndPincode(dto.getProductid(),orderdto.getPincode()));
-			if(cartService.isProductNotAvailable(dto.getProductid(),orderdto.getPincode()))
-			{
-				 throw new ProductNotAvailable(product.getProductName());
-			}
 			product.setQuantity(product.getQuantity() - dto.getQuantity());
 			if (product.getQuantity() < 5) {
                    this.AlertMail(product);
@@ -169,7 +168,7 @@ public class OrderServices {
 		}
 	}
 
-	public Order cartMoveToOrder(String mail, String address) {
+	public Order cartMoveToOrder(String mail, String address,int pincode) {
 		List<CartItem> cart = cartService.getAllItemItemsFromCart(mail);
 		if (cart.size() == 0) {
 			throw new NoProductFound();
@@ -177,6 +176,7 @@ public class OrderServices {
 		OrderDto order = new OrderDto();
 		order.setEmail(mail);
 		order.setAddress(address);
+		order.setPincode(pincode);
 		List<OrderItemDto> OrderItems = new ArrayList<>();
 		for (CartItem a : cart) {
 			OrderItemDto item = new OrderItemDto();

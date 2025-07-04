@@ -1,63 +1,58 @@
 package com.tcskart.cartservice.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 
 @Entity
+@Schema(description = "Represents a mapping of a product that is not available for a specific pincode")
 public class ProductNotAvailableLocation {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	private Integer pincode;
-	
-	
-	private int productId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier of the record", example = "1")
+    private Integer id;
 
-	public ProductNotAvailableLocation() {}
-	
-	public ProductNotAvailableLocation(Integer id, Integer pincode, int productId) {
-		this.id = id;
-		this.pincode = pincode;
-		this.productId = productId;
-	}
+    @Schema(description = "Pincode where the product is not available", example = "600001")
+    private Integer pincode;
 
-	public ProductNotAvailableLocation(Integer pincode, int productId) {
-		super();
-		this.pincode = pincode;
-		this.productId = productId;
-	}
+    @Schema(description = "ID of the product that is not available", example = "101")
+    private int productId;
 
-	public Integer getId() {
-		return id;
-	}
+    public ProductNotAvailableLocation() {}
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    public ProductNotAvailableLocation(Integer id, Integer pincode, int productId) {
+        this.id = id;
+        this.pincode = pincode;
+        this.productId = productId;
+    }
 
-	public Integer getPincode() {
-		return pincode;
-	}
+    public ProductNotAvailableLocation(Integer pincode, int productId) {
+        super();
+        this.pincode = pincode;
+        this.productId = productId;
+    }
 
-	public void setPincode(Integer pincode) {
-		this.pincode = pincode;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public int getProductId() {
-		return productId;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
-	public void setProductId(int productId) {
-		this.productId = productId;
-	}
+    public Integer getPincode() {
+        return pincode;
+    }
 
-	
-	
-	
-	
+    public void setPincode(Integer pincode) {
+        this.pincode = pincode;
+    }
+
+    public int getProductId() {
+        return productId;
+    }
+
+    public void setProductId(int productId) {
+        this.productId = productId;
+    }
 }

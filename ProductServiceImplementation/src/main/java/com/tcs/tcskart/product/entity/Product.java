@@ -5,130 +5,122 @@ import java.util.List;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.tcs.tcskart.product.utility.ProductCategory;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 
 @Entity
+@Schema(description = "Represents a product in the TCSKart system")
 public class Product {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer productId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique ID of the product", example = "101")
+    private Integer productId;
 
-	@Column(nullable = false)
-	private String productName;
+    @Column(nullable = false)
+    @Schema(description = "Name of the product", example = "Samsung Galaxy M15")
+    private String productName;
 
-	@Column(nullable = false)
-	private String description;
+    @Column(nullable = false)
+    @Schema(description = "Product description", example = "6.5-inch AMOLED, 6000mAh battery")
+    private String description;
 
-	@Column(nullable = false)
-	private Double productPrice;
+    @Column(nullable = false)
+    @Schema(description = "Price of the product", example = "14999.00")
+    private Double productPrice;
 
-	@Column(nullable = false)
-	private Integer quantity;
+    @Column(nullable = false)
+    @Schema(description = "Available quantity in stock", example = "50")
+    private Integer quantity;
 
-	@Enumerated(EnumType.STRING)
-	@Column(nullable = false)
-	private ProductCategory productCategory;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @Schema(description = "Product category", example = "ELECTRONICS")
+    private ProductCategory productCategory;
 
-	@Column(nullable = false)
-	private Double productRating;
-	
-	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
-	@JsonManagedReference
-	private List<ProductImage> images;
+    @Column(nullable = false)
+    @Schema(description = "Average user rating of the product", example = "4.5")
+    private Double productRating;
 
-	public List<ProductImage> getImages() {
-	    return images;
-	}
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
+    @Schema(description = "List of images associated with the product")
+    private List<ProductImage> images;
 
-	public void setImages(List<ProductImage> images) {
-	    this.images = images;
-	}
+    public Product() {}
 
+    public Product(String productName, String description, Double productPrice, Integer quantity,
+                   ProductCategory productCategory, Double productRating) {
+        super();
+        this.productName = productName;
+        this.description = description;
+        this.productPrice = productPrice;
+        this.quantity = quantity;
+        this.productCategory = productCategory;
+        this.productRating = productRating;
+    }
 
-	public Product() {
+    public Integer getProductId() {
+        return productId;
+    }
 
-	}
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 
-	public Product(String productName, String description, Double productPrice, Integer quantity,
-			ProductCategory productCategory, Double productRating) {
-		super();
-		this.productName = productName;
-		this.description = description;
-		this.productPrice = productPrice;
-		this.quantity = quantity;
-		this.productCategory = productCategory;
-		this.productRating = productRating;
-	}
+    public String getProductName() {
+        return productName;
+    }
 
-	public Integer getProductId() {
-		return productId;
-	}
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
 
-	
-	public ProductCategory getProductCategory() {
-		return productCategory;
-	}
+    public String getDescription() {
+        return description;
+    }
 
-	public void setProductCategory(ProductCategory productCategory) {
-		this.productCategory = productCategory;
-	}
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
+    public Double getProductPrice() {
+        return productPrice;
+    }
 
-	public String getProductName() {
-		return productName;
-	}
+    public void setProductPrice(Double productPrice) {
+        this.productPrice = productPrice;
+    }
 
-	public void setProductName(String productName) {
-		this.productName = productName;
-	}
+    public Integer getQuantity() {
+        return quantity;
+    }
 
-	public String getDescription() {
-		return description;
-	}
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
-	public void setDescription(String description) {
-		this.description = description;
-	}
+    public ProductCategory getProductCategory() {
+        return productCategory;
+    }
 
-	public Double getProductPrice() {
-		return productPrice;
-	}
+    public void setProductCategory(ProductCategory productCategory) {
+        this.productCategory = productCategory;
+    }
 
-	public void setProductPrice(Double productPrice) {
-		this.productPrice = productPrice;
-	}
+    public Double getProductRating() {
+        return productRating;
+    }
 
-	public Integer getQuantity() {
-		return quantity;
-	}
+    public void setProductRating(Double productRating) {
+        this.productRating = productRating;
+    }
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
+    public List<ProductImage> getImages() {
+        return images;
+    }
 
-
-	public Double getProductRating() {
-		return productRating;
-	}
-
-	public void setProductRating(Double productRating) {
-		this.productRating = productRating;
-	}
-
+    public void setImages(List<ProductImage> images) {
+        this.images = images;
+    }
 }
-
-

@@ -1,74 +1,70 @@
 package com.tcskart.cartservice.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import jakarta.persistence.CascadeType;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.*;
 
 @Entity
+@Schema(description = "Represents an individual item inside a user's cart")
 public class CartItem {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	private Integer quantity;
-	
-	@ManyToOne
-	@JoinColumn(name = "cart_id")
-	@JsonBackReference
-	private Cart cart;
-	
-	private Integer productId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(description = "Unique identifier for the cart item", example = "101")
+    private Integer id;
 
-	public CartItem(Integer id, Integer quantity, Cart cart, Integer productId) {
-		super();
-		this.id = id;
-		this.quantity = quantity;
-		this.cart = cart;
-		this.productId = productId;
-	}
-	
-	public CartItem(){}
+    @Schema(description = "Quantity of the product in the cart", example = "2")
+    private Integer quantity;
 
-	public Integer getId() {
-		return id;
-	}
+    @ManyToOne
+    @JoinColumn(name = "cart_id")
+    @JsonBackReference
+    @Schema(description = "The cart to which this item belongs")
+    private Cart cart;
 
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    @Schema(description = "ID of the product added to the cart", example = "5001")
+    private Integer productId;
 
-	public Integer getQuantity() {
-		return quantity;
-	}
+    public CartItem(Integer id, Integer quantity, Cart cart, Integer productId) {
+        super();
+        this.id = id;
+        this.quantity = quantity;
+        this.cart = cart;
+        this.productId = productId;
+    }
 
-	public void setQuantity(Integer quantity) {
-		this.quantity = quantity;
-	}
+    public CartItem() {}
 
-	public Cart getCart() {
-		return cart;
-	}
+    public Integer getId() {
+        return id;
+    }
 
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
+    public void setId(Integer id) {
+        this.id = id;
+    }
 
+    public Integer getQuantity() {
+        return quantity;
+    }
 
-	public Integer getProductId() {
-		return productId;
-	}
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
+    }
 
-	public void setProductId(Integer productId) {
-		this.productId = productId;
-	}
+    public Cart getCart() {
+        return cart;
+    }
 
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Integer getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Integer productId) {
+        this.productId = productId;
+    }
 }

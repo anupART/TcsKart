@@ -20,7 +20,7 @@ public interface CartFeignClient {
     @DeleteMapping("/customers/feign/cart/{userEmail}")
 	ResponseEntity<String> removeAllItemItemsFromCart(@PathVariable String userEmail);
     
-    @GetMapping("/product/{productId}/{pincode}")
+    @GetMapping("/customers/product/share/{productId}/{pincode}")
 	public boolean isProductNotAvailable(@PathVariable Integer productId,@PathVariable Integer pincode);
     
 }
